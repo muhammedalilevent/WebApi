@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <p id="userInfo"></p>
+    <button onclick="SignOut()">Oturumu Kapat</button>
+</body>
+</html>
+<script type="text/javascript">
+    var uri = "http://localhost:56708";
+    var apiUri = "http://localhost:56548";
+
+    $(document).ready(function () {
+        var userInfoObj = JSON.parse(localStorage.getItem("userInfo"));
+
+        if (userInfoObj == null) {
+            window.location.href = uri + "/login.html";
+        } else {
+            $("#userInfo").text("Hoş Geldiniz " + userInfoObj.Email);
+        }
+    });
+    function SignOut() {
+        localStorage.removeItem("userInfo");
+        window.location.href = uri + "/login.html";
+    }
+</script>

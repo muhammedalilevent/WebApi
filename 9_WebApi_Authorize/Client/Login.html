@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <form id="frm">
+        <input type="text" name="Email" />
+        <input type="password" name="Password" />
+        <input type="submit" value="OTURUM AÇ" />
+    </form>
+</body>
+</html>
+
+<script type="text/javascript">
+    var uri = "http://localhost:56708";
+    var apiUri = "http://localhost:56548";
+
+    $("#frm").submit(function (e) {
+        e.preventDefault();
+        var data = $("#frm").serializeArray();
+
+        $.ajax({
+            url: apiUri + "/api/Account",
+            type: "POST",
+            data: data,
+            success: function (response) {
+                if (response == null) {
+                    alert("Parola ve Şifre Hatalı!....");
+                }
+                else {
+                    console.log(JSON.stringify(response));
+                    var userInfoJsonString = JSON.stringify(response);
+                    localStorage.setItem("userInfo", userInfoJsonString);
+                    window.location.href = uri + "/home.html";
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        if (localStorage.getItem("userInfo") != null)
+        {
+            window.location.href = uri + "/home.html";
+        }
+    })
+</script>
+

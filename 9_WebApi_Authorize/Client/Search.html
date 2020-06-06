@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <input type="search" name="Name" value="" onchange="Search(this.value)" />
+    <div id="test">
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var uri = "http://localhost:56708";
+    var apiUri = "http://localhost:56548";
+
+    $(function () {
+        $.ajax({
+            url: apiUri + "/api/ODataTest",
+            type: "GET",
+            contentType: "application/Json",
+            success: function (response) {
+                var div = $("#test");
+                $.each(response, function (index, value) {
+                    $(div).append("<p>" + value.Name + "</p>");
+                });
+            }
+        });
+    });
+    function Search(gelenDeger) {
+        $.ajax({
+            url: apiUri + "/api/ODataTest?$filter=Name" + " eq %27" + gelenDeger + "%27",
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                var div = $("#test");
+                $(div).empty();
+                $.each(response, function (index, value) {
+                    $(div).append("<p>" + value.Name + "</p>");
+                });
+            }
+        })
+    }
+</script>

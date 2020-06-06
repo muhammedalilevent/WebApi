@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <ul id="data"></ul>
+    <button onclick="Get()">Get</button>
+</body>
+</html>
+<script type="text/javascript">
+    function Get() {
+        $.ajax({
+            url: "http://localhost:35933/api/Categories/Categories",
+            type: "GET",
+            success: function (data) {
+                $.each(data, function (key, item) {
+                    $("#data").append("<li>" + item.CategoryName + "</li>");
+                });
+            }
+        });
+    }
+</script>
